@@ -1,5 +1,6 @@
 import platform
 import webbrowser
+import shutil
 import os
 import fnmatch
 from tutorial import Tutorial
@@ -110,7 +111,8 @@ def choice_four(choice):
 
                                 if platform.system() == 'Linux':
                                     # print("Linux detected.")
-                                    os.system(f"/snap/bin/{app_to_use}")
+                                    req_app = shutil.which(f"{app_to_use}")
+                                    os.system(f"{req_app}")
 
                                 if platform.system() == 'Linux' and "WSL" in platform.release():
                                 # print("WSL detected. Will require Windows fn()'s")
