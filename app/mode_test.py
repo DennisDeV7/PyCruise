@@ -47,13 +47,13 @@ def secondary_menu():
     print("\033[1;34m[+] R. Return to Main Menu\n")
 
 
-def choice_one(choice):
+def tutorial(choice):
      if choice == "4":
         instance = Tutorial()
         instance.tut_run()
 
 
-def choice_two(choice):
+def view_modes(choice):
     if choice == "2":
 
         DIR = 'txt_files/'
@@ -70,12 +70,12 @@ def choice_two(choice):
                 print(Path(file_list[i]).stem)
 
 
-def choice_three(choice):
+def create_mode(choice):
     if choice == "3":
         new_collection = input('Name your mode > ')
         open(f"txt_files/{new_collection}.txt", "a")
 
-def choice_four(choice):
+def select_mode(choice):
     if choice == "1":
         DIR = 'txt_files/'
         current_collection = None
@@ -93,91 +93,96 @@ def choice_four(choice):
             current_collection = switch
             # print(current_collection)
 
+            choice_six(choice, current_collection)
+            choice
 
-            def choice_six(choice):
-                """This is for Linux. For Mac/Windows users replace system path with path to application execution files"""
-                if choice == "6":
+            choice_seven(choice, current_collection)
+            choice_eight(choice, current_collection)
+            choice_nine(choice, current_collection)
+            secondary_run(current_collection)
 
-                    with open(f"txt_files/{current_collection}.txt", "r") as f:
-                        text_from_file = f.readlines()
-                        if len(text_from_file) == 0:
-                            print(":( Sorry, you don't have any Apps/Websites in this mode. Enter (8) to add.")
+def choice_six(choice, current_collection):
+    """This is for Linux. For Mac/Windows users replace system path with path to application execution files"""
+    if choice == "6":
 
-                        for app in text_from_file:
-                            if "http" in app or "www" in app:
-                                webbrowser.open(app.strip())
-                            else:
-                                app_to_use = app.strip('\n').lower()
+        with open(f"txt_files/{current_collection}.txt", "r") as f:
+            text_from_file = f.readlines()
+            if len(text_from_file) == 0:
+                print(":( Sorry, you don't have any Apps/Websites in this mode. Enter (8) to add.")
 
-                                if platform.system() == 'Linux':
-                                    # print("Linux detected.")
-                                    req_app = shutil.which(f"{app_to_use}")
-                                    os.system(f"{req_app}")
+            for app in text_from_file:
+                if "http" in app or "www" in app:
+                    webbrowser.open(app.strip())
+                else:
+                    app_to_use = app.strip('\n').lower()
 
-                                if platform.system() == 'Linux' and "WSL" in platform.release():
-                                # print("WSL detected. Will require Windows fn()'s")
-                                    pass
+                    if platform.system() == 'Linux':
+                        # print("Linux detected.")
+                        req_app = shutil.which(f"{app_to_use}")
+                        os.system(f"{req_app}")
 
-                                if platform.system() == 'Windows':
-                                    # print("Windows detected.")
-                                    pass
+                    if platform.system() == 'Linux' and "WSL" in platform.release():
+                    # print("WSL detected. Will require Windows fn()'s")
+                        pass
 
-                                if platform.system() == 'Darwin':
-                                    # print("Now opening MacOS Application!")
-                                    os.system(f"""osascript -e 'tell application "{app_to_use}" to activate'""")
+                    if platform.system() == 'Windows':
+                        # print("Windows detected.")
+                        pass
 
-
-            def choice_seven(choice):
-                if choice == "8":
-
-                    while True:
-                        app_choice = input("Enter an app or website to add or (f) as finished: ")
-                        if app_choice.lower() == "f":
-                            break
-                        else:
-                            with open(f"txt_files/{current_collection}.txt", "a") as f:
-                                f.write(f"{app_choice}\n")
+                    if platform.system() == 'Darwin':
+                        # print("Now opening MacOS Application!")
+                        os.system(f"""osascript -e 'tell application "{app_to_use}" to activate'""")
 
 
-            def choice_eight(choice):
-                if choice == "9":
-                    while True:
-                        delete_choice = input("Enter an app or website to delete or (f) as finished: ")
-                        if delete_choice.lower() == "f":
-                            break
-                        else:
-                            with open(f"txt_files/{current_collection}.txt", "r") as fr:
-                                lines = fr.readlines()
-                                with open(f"txt_files/{current_collection}.txt", "w") as fw:
-                                    for line in lines:
-                                        if line.strip('\n').lower() != f"{delete_choice.lower()}":
-                                            fw.write(line)
+def choice_seven(choice, current_collection):
+    if choice == "8":
+
+        while True:
+            app_choice = input("Enter an app or website to add or (f) as finished: ")
+            if app_choice.lower() == "f":
+                break
+            else:
+                with open(f"txt_files/{current_collection}.txt", "a") as f:
+                    f.write(f"{app_choice}\n")
 
 
-            def choice_nine(choice):
-                if choice == "7":
-                    with open(f"txt_files/{current_collection}.txt", "r") as f:
-                        text_from_file = f.readlines()
-                        if len(text_from_file) == 0:
-                            print(":( Sorry, you don't have any Apps/Websites in this mode. Enter (8) to add.")
-                        for file in text_from_file:
-                            print(file)
+def choice_eight(choice, current_collection):
+    if choice == "9":
+        while True:
+            delete_choice = input("Enter an app or website to delete or (f) as finished: ")
+            if delete_choice.lower() == "f":
+                break
+            else:
+                with open(f"txt_files/{current_collection}.txt", "r") as fr:
+                    lines = fr.readlines()
+                    with open(f"txt_files/{current_collection}.txt", "w") as fw:
+                        for line in lines:
+                            if line.strip('\n').lower() != f"{delete_choice.lower()}":
+                                fw.write(line)
 
-            def secondary_run():
-                choice = "7"
+
+def choice_nine(choice, current_collection):
+    if choice == "7":
+        with open(f"txt_files/{current_collection}.txt", "r") as f:
+            text_from_file = f.readlines()
+            if len(text_from_file) == 0:
+                print(":( Sorry, you don't have any Apps/Websites in this mode. Enter (8) to add.")
+            for file in text_from_file:
+                print(file)
+
+def secondary_run(current_collection):
+    choice = "7"
 
 
 
-                while choice != "R" and choice != "r":
-                    print(f"Current Mode Activated: {current_collection}")
-                    secondary_menu()
-                    choice = input("\033[1;34m[+]\033[1;m \033[01;33mEnter your choice:\033[1;m ")
-                    choice_six(choice)
-                    choice_seven(choice)
-                    choice_eight(choice)
-                    choice_nine(choice)
-
-            secondary_run()
+    while choice != "R" and choice != "r":
+        print(f"Current Mode Activated: {current_collection}")
+        secondary_menu()
+        choice = input("\033[1;34m[+]\033[1;m \033[01;33mEnter your choice:\033[1;m ")
+        choice_six(choice, current_collection)
+        choice_seven(choice, current_collection)
+        choice_eight(choice, current_collection)
+        choice_nine(choice, current_collection)
 
 def choice_ten(choice):
     if choice == "10":
@@ -191,10 +196,10 @@ def run():
     while choice != "5":
         main_menu()
         choice = input("\033[1;34m[\033[01;33m+\033[1;34m]\033[1;m \033[01;33mEnter your choice:\033[1;m ")
-        choice_one(choice)
-        choice_two(choice)
-        choice_three(choice)
-        choice_four(choice)
+        tutorial(choice)
+        view_modes(choice)
+        create_mode(choice)
+        select_mode(choice)
 
 
 if __name__ == "__main__":

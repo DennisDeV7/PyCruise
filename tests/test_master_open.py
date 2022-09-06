@@ -24,7 +24,7 @@ def test_create_mode():
     app.mode_test.run
 
     response = input("Enter your choice: ")
-    app.mode_test.choice_three(response)
+    app.mode_test.create_mode(response)
 
     file_exists = os.path.exists('txt_files/dev.txt')
     expected = True
@@ -56,7 +56,7 @@ def test_select_modes():
 
     app.mode_test.run
     response = input("Enter your choice: ")
-    app.mode_test.choice_four(response)
+    app.mode_test.select_mode(response)
     input("Which mode would you like to select? > ")
     
 
@@ -109,7 +109,7 @@ def test_add_app():
     app.mode_test.run
 
     response_one = input("select mode ")
-    app.mode_test.choice_four(response_one)
+    app.mode_test.select_mode(response_one)
    
     with open ("txt_files/dev.txt", 'r') as f:
         content = f.readlines()
@@ -147,7 +147,7 @@ def test_delete_app():
     app.mode_test.run
 
     response_one = input("select mode ")
-    # app.mode_test.choice_four(response_one)
+    # app.mode_test.select_mode(response_one)
 
     with open ("txt_files/dev.txt", 'r') as f:
         content = f.readlines()
@@ -184,7 +184,7 @@ def test_view_apps():
 
     app.mode_test.run
     response = input("Enter your choice: ")
-    app.mode_test.choice_four(response)
+    app.mode_test.select_mode(response)
 
 
     
@@ -245,7 +245,7 @@ def test_view_modes():
 
     app.mode_test.run
     response = input("Enter your choice: ")
-    app.mode_test.choice_two(response)
+    app.mode_test.view_modes(response)
 
 
     
